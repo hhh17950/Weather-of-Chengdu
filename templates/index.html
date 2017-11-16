@@ -1,0 +1,96 @@
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>成都近七日天气预报</title>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+</head>
+<body>
+<script src="//img.hcharts.cn/highcharts/modules/export-data.js"> </script>
+<div id="container" style="width: 800px; height: 500px; margin: 0 auto"></div>
+<script language="JavaScript">
+$(document).ready(function() {
+        Highcharts.setOptions({
+    lang: {
+        printChart: '打印图表',
+        downloadJPEG: '下载 JPEG 文件',
+        downloadPDF: '下载 PDF   文件',
+        downloadPNG: '下载 PNG  文件',
+        downloadSVG: '下载 SVG  文件',
+        downloadCSV: '下载 CSV  文件',
+        downloadXLS: '下载 XLS   文件',
+        viewData: '查看数据表格'
+    },
+    navigation: {
+        menuItemStyle: {
+            padding: '6px 14px'
+        }
+    },
+    exporting: {
+        url: 'https://export.highcharts.com.cn'
+    }
+});
+   var title = {
+      text: '成都天气预报'
+   };
+   var subtitle = {
+      text: '数据来自于中国气象局'
+   };
+   var xAxis = {
+      categories: {{ categories|safe }},
+      labels :{
+          formatter : function () {
+              return this.value
+          }
+      }
+   };
+   var yAxis = {
+      title: {
+         text: '气温 (\xB0C)'
+      },
+      plotLines: [{
+         value: 0,
+         width: 1,
+         color: '#808080'
+      }]
+   };
+
+   var tooltip = {
+      valueSuffix: '\xB0C'
+   };
+
+   var legend = {
+      layout: 'vertical',
+      align: 'right',
+      verticalAlign: 'middle',
+      borderWidth: 0
+   };
+
+   var series =  [
+      {
+         name: '最高气温',
+         data: {{ temperature_H|safe }}
+      },
+      {
+         name: '最低气温',
+         data: {{ temperature_L|safe }}
+      }
+   ];
+
+   var json = {};
+
+   json.title = title;
+   json.subtitle = subtitle;
+   json.xAxis = xAxis;
+   json.yAxis = yAxis;
+   json.tooltip = tooltip;
+   json.legend = legend;
+   json.series = series;
+
+   $('#container').highcharts(json);
+});
+</script>
+</body>
+</html>
