@@ -3,7 +3,7 @@ beautifulsoup4==4.6.0
 certifi==2017.7.27.1
 chardet==3.0.4
 cycler==0.10.0
-Django==1.11.7
+Django==1.11.23
 i18n==0.2
 idna==2.6
 matplotlib==2.1.0
